@@ -100,25 +100,13 @@ paths:
       operationId: updateAccount
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema:
               type: object
               properties:
                 display_name:
                   description: "The name to display in the user's profile  "
                   type: string
-                note:
-                  description: A new biography for the user
-                  type: string
-                avatar:
-                  description: An avatar for the user (encoded using multipart/form-data)
-                  type: string
-                  format: binary
-                header:
-                  description: A header image for the user (encoded using
-                    multipart/form-data)
-                  type: string
-                  format: binary
       responses:
         "200":
           description: OK

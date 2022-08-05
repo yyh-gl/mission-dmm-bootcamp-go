@@ -2,6 +2,7 @@ package accounts
 
 import (
 	"net/http"
+	"yatter-backend-go/app/handler/auth"
 
 	"yatter-backend-go/app/app"
 
@@ -19,6 +20,7 @@ func NewRouter(app *app.App) http.Handler {
 
 	h := &handler{app: app}
 	r.Post("/", h.Create)
+	r.With(auth.Middleware(app)).Post("/update_credentials", h.Update)
 
 	return r
 }

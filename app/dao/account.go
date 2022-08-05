@@ -47,3 +47,11 @@ VALUES (?, ?, ?, ?, ?, ?, ?);`
 	}
 	return nil
 }
+
+func (r *account) Update(ctx context.Context, account object.Account) error {
+	query := "UPDATE account SET display_name = ? WHERE username = ?;"
+	if _, err := r.db.ExecContext(ctx, query, account.DisplayName, account.Username); err != nil {
+		return err
+	}
+	return nil
+}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
+	"strings"
 	"time"
 )
 
@@ -81,4 +82,12 @@ func generatePasswordHash(pass string) (PasswordHash, error) {
 		return "", fmt.Errorf("hashing password failed: %w", errors.WithStack(err))
 	}
 	return PasswordHash(hash), nil
+}
+
+func (a *Account) SetDisplayName(displayName string) error {
+	if strings.Contains(displayName, "@") {
+		return errors.New("invalid display name")
+	}
+	a.DisplayName = &displayName
+	return nil
 }
