@@ -2,10 +2,11 @@ package object
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
-	"golang.org/x/crypto/bcrypt"
 	"strings"
 	"time"
+
+	"github.com/pkg/errors"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type (
