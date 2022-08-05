@@ -2,9 +2,9 @@ package object
 
 import (
 	"fmt"
-
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
+	"time"
 )
 
 type (
@@ -38,6 +38,27 @@ type (
 		CreateAt DateTime `json:"create_at,omitempty" db:"create_at"`
 	}
 )
+
+func NewAccount(username, password string) (Account, error) {
+	if len(username) > 10 {
+		return Account{}, errors.New("username is too long")
+	}
+
+	if len(password) < 5 {
+		return Account{}, errors.New("password is too short")
+	}
+
+	account := Account{
+		Username: username,
+		CreateAt: DateTime{Time: time.Now()},
+	}
+
+	if err := account.SetPassword(password); err != nil {
+		return Account{}, err
+	}
+
+	return account, nil
+}
 
 // Check if given password is match to account's password
 func (a *Account) CheckPassword(pass string) bool {
